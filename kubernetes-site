@@ -1,5 +1,6 @@
 # HTTPS server
 #
+
 server {
 	listen 443;
 	server_name localhost;
@@ -18,8 +19,8 @@ server {
 	ssl_prefer_server_ciphers on;
 
 	location / {
-		# auth_basic            "Restricted";
-		# auth_basic_user_file  /usr/share/nginx/htpasswd;
+		auth_basic            "Restricted";
+		auth_basic_user_file  /usr/share/nginx/htpasswd;
 
 		# Proxy settings
 		# disable buffering so that watch works
