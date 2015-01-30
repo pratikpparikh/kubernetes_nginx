@@ -15,7 +15,12 @@
 # limitations under the License.
 
 openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+  -keyout /usr/share/nginx/rootCA.key  -out /usr/share/nginx/rootCA.crt
+
+openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+  -CA /usr/share/nginx/rootCA.crt -CAkey /usr/share/nginx/rootCA.key \
   -config /root/kub-ssl.cnf -extensions v3_ca \
   -subj "/CN=kubernetes.invalid/O=Kubernetes" \
   -keyout /usr/share/nginx/server.key  -out /usr/share/nginx/server.cert
 
+cat /usr/share/nginx/server.cert /usr/share/nginx/rootCA.crt > /usr/share/nginx/server.cert
