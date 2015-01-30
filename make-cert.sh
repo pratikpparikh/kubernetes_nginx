@@ -15,6 +15,7 @@
 # limitations under the License.
 
 openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+  -config /root/kub-ssl.cnf -extensions v3_ca \
   -subj "/CN=kubernetes.invalid/O=Kubernetes" \
   -keyout /usr/share/nginx/server.key  -out /usr/share/nginx/server.cert
 
