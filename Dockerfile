@@ -15,7 +15,8 @@ RUN rm -f /etc/nginx/sites-enabled/default
 
 # Create SSL Certificates at build time
 #ADD make-ca-cert.sh /root/
-ADD make-cert.sh kub-ssl.cnf /root/
+ADD make-cert.sh /root/
+ADD kub-ssl.cnf /root/
 RUN chmod 755 /root/make-cert.sh
 RUN /root/make-cert.sh
 
