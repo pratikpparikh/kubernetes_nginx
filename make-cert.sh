@@ -21,11 +21,12 @@ openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 openssl genrsa -out /tmp/server.key 2048
 openssl rsa -in /tmp/server.key -out /usr/share/nginx/server.key
 
-openssl req -new -key /usr/share/nginx/server.key -out /tmp/host.csr
+openssl req -new -key /usr/share/nginx/server.key -out /tmp/host.csr \
+  -config /root/kub-ssl.cnf -extensions v3_ca \
+  -subj "/CN=kubernetes.invalid/O=Kubernetes" 
 
 openssl x509 -req -in /tmp/host.csr -CA /usr/share/nginx/rootCA.crt \
   -extfile /root/kub-ssl.cnf -extensions v3_ca \
-  -subj "/CN=kubernetes.invalid/O=Kubernetes" \
   -CAkey /usr/share/nginx/rootCA.key \
   -CAcreateserial -out /usr/share/nginx/server.crt -days 365
 
