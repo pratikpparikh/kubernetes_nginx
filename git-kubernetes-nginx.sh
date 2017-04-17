@@ -1,5 +1,8 @@
 #!/bin/bash
-IP=`ip addr show eth0|awk '/inet / {print $2}'|cut -f1 -d/`
+
+IFACE=${1:-eth0}
+
+IP=`ifconfig $IFACE | grep -m 1 inet | awk '{print $2}'`
 /usr/bin/cp /opt/.kubernetes_auth /opt/kubernetes_nginx/.kubernetes_auth
 
 cat << EOF > /opt/kubernetes_nginx/kub-ssl.cnf
